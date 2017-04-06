@@ -64,19 +64,35 @@ void BinarySearchTree<T>::remove(String* sk)
 {
    //DO THIS
    TreeNode<T>* current = getRootNode();
+   TreeNode<T>* prev = getRootNode();
    int comparison = compare_keys(sk, current->getItem());
    while(current != NULL && comparison != 0)
    {
 	   if(comparison == 0)
 	   {
-		   current = removeNode(current);
+		   if(current == getRootNode()
+		   {
+			   current = removeNode(current);
+			   setRootNode(current);
+		   }
+		   else if(prev->getRight == current)
+		   {
+				current = removeNode(current);
+				prev->setRight(current);
+		   }else if(prev->getLeft == current)
+		   {
+			   current = removeNode(current);
+			   prev->setLeft(current);
+		   }
 		   return;
 	   }
 	   else if(comparison > 0)
 	   {
+		   prev = current;
 		   current = current->getRight();
 	   }else if(comparison < 0)
 	   {
+		   prev = current;
 		   current = current->getLeft();
 	   }
 	   if(current != NULL)
@@ -116,11 +132,12 @@ TreeNode<T>* BinarySearchTree<T>::removeNode(TreeNode<T>* tNode)
    else 
    {
       //DO THIS
-
-
-
-
-
+	  TreeNode<T>* temp = tNode->getRight();
+	  T* item = findLeftMost(temp);
+	  temp ->setLeft(removeLeftMost(temp));
+	  tNode->setItem(item);
+	  tNode->setRight(temp);
+	  
    }
 }
 
@@ -163,12 +180,17 @@ T** BinarySearchTree<T>::toArray()
 }
 
 template < class T >
-T** BinarySearchTree<T>::treeSort(T** items, int num_itemss, int (*comp_items) (T* item_1, T* item_2), int (*comp_keys) (String* key, T* item))
+T** BinarySearchTree<T>::treeSort(T** items, int num_items, int (*comp_items) (T* item_1, T* item_2), int (*comp_keys) (String* key, T* item))
 {
    //DO THIS
-
-
-
+   compare_items = comp_items;
+   compare_keys = comp_keys;
+   for(int i = 0; i < num_items; i++)
+   {
+		insert[items[i]];
+   }
+   
+   return toArray();
 }
 
 template < class T >

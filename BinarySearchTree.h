@@ -173,8 +173,15 @@ TreeNode<T>* BinarySearchTree<T>::removeLeftMost(TreeNode<T>* tNode)
 template < class T >
 T** BinarySearchTree<T>::toArray()
 {
-   //DO THIS
-
+   ///////
+   T** array = new T*[sze];
+   TreeNode<T>* current = getRootNode();
+ for (int i=0;i<sze;i++)
+  {
+          current=findLeftMost(current);
+          array[i]=current;
+   }
+   return array;
 
 
 }

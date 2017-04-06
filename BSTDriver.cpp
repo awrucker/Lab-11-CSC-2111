@@ -10,8 +10,10 @@
 #include "AVLTree.h"
 #include "ListArray.h"
 #include "CD.h"
+#include "BinarySearchTree.h"
 using namespace CSC2110;
-
+#include <iostream>
+using namespace std;
 class MyApp: public wxApp
 {
     bool OnInit();
@@ -43,16 +45,14 @@ bool MyApp::OnInit()
    //DO THIS
    //test your tree sort method
    CD** unsorted_cds = cds->toArray();
-   CD** sorted_cds = bst->treeSort(unsorted_cds, num_items, )
-
-
-
-
-
-
-
-
-
+   CD** sorted_cds = bst->treeSort(unsorted_cds, num_items, &CD::compare_items, &CD::compare_keys);
+   
+   for(int i = 0; i < num_items; i ++)
+   {
+	   sorted_cds[i]->displayCD();
+   }
+   delete[] unsorted_cds;
+   delete[] sorted_cds;
    delete cds;
    wxBoxSizer* sizer = new wxBoxSizer(wxHORIZONTAL);
    frame = new wxFrame((wxFrame *)NULL, -1,  wxT("AVL Tree"), wxPoint(500,500), wxSize(1100,600));
@@ -65,6 +65,4 @@ bool MyApp::OnInit()
  
    frame->Show();
    return true;
-} 
-   return 0;
 }

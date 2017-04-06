@@ -70,16 +70,16 @@ void BinarySearchTree<T>::remove(String* sk)
    {
 	   if(comparison == 0)
 	   {
-		   if(current == getRootNode()
+		   if(current == getRootNode())
 		   {
 			   current = removeNode(current);
 			   setRootNode(current);
 		   }
-		   else if(prev->getRight == current)
+		   else if(prev->getRight() == current)
 		   {
 				current = removeNode(current);
 				prev->setRight(current);
-		   }else if(prev->getLeft == current)
+		   }else if(prev->getLeft() == current)
 		   {
 			   current = removeNode(current);
 			   prev->setLeft(current);
@@ -96,7 +96,7 @@ void BinarySearchTree<T>::remove(String* sk)
 		   current = current->getLeft();
 	   }
 	   if(current != NULL)
-		   comparison(compare_keys(sk, current->getItem());
+		   comparison(compare_keys(sk, current->getItem()));
    }
 }
 
@@ -105,8 +105,23 @@ TreeNode<T>* BinarySearchTree<T>::removeItem(TreeNode<T>* tNode, String* sk)
 {
    //DO THIS
    
-
-
+   int comparison = compare_key(sk,	tNode->getItem());
+   if(comparison == 0)
+	{
+		if(tNode == getRootNode())
+		   {
+			   setRootNode(tNode->removeNode(tNode));
+		   }
+		tNode = tNode->removeNode(tNode);   
+	}
+	   else if(comparison > 0)
+	   {
+		   tNode->setLeft(removeItem(tNode ->getLeft(), sk));
+	   }else if(comparison < 0)
+	   {
+		   tNode->setRight(removeItem(tNode->getRight(), sk));
+	  }
+	return tNode;
 }
 
 template < class T >
@@ -174,13 +189,17 @@ template < class T >
 T** BinarySearchTree<T>::toArray()
 {
    ///////
+   
    T** array = new T*[sze];
+   /*
    TreeNode<T>* current = getRootNode();
  for (int i=0;i<sze;i++)
   {
           current=findLeftMost(current);
           array[i]=current;
    }
+   */
+   BinaryTreeIterator
    return array;
 
 
@@ -190,14 +209,14 @@ template < class T >
 T** BinarySearchTree<T>::treeSort(T** items, int num_items, int (*comp_items) (T* item_1, T* item_2), int (*comp_keys) (String* key, T* item))
 {
    //DO THIS
-   compare_items = comp_items;
-   compare_keys = comp_keys;
+   BinarySearchTree<T>* bst = new BinarySearchTree<T>(comp_items, comp_keys);
    for(int i = 0; i < num_items; i++)
    {
-		insert[items[i]];
+		bst->insert(items[i]);
    }
-   
-   return toArray();
+   T** sorted_items =  bst->toArray();
+   delete bst;
+   return sorted_items;
 }
 
 template < class T >

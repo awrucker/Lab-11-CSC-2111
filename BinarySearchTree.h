@@ -8,7 +8,8 @@ using CSC2110::String;
 #include "Line.h"
 #include "Drawable.h"
 #include "wx/wx.h"
-
+using namespace std;
+#include <iostream>
 
 template < class T >
 class BinarySearchTree : public Drawable
@@ -64,12 +65,15 @@ void BinarySearchTree<T>::remove(String* sk)
 {
    //DO THIS
    TreeNode<T>* current = getRootNode();
-   TreeNode<T>* prev = getRootNode();
+   current = removeItem(current, sk);
+   setRootNode(current);
+  /* TreeNode<T>* prev = getRootNode();
    int comparison = compare_keys(sk, current->getItem());
-   while(current != NULL && comparison != 0)
+   while(current != NULL)
    {
 	   if(comparison == 0)
 	   {
+		   cout<<"Found it "<<endl;
 		   if(current == getRootNode())
 		   {
 			   current = removeNode(current);
@@ -78,7 +82,9 @@ void BinarySearchTree<T>::remove(String* sk)
 		   else if(prev->getRight() == current)
 		   {
 				current = removeNode(current);
-				prev->setRight(current);
+			
+
+			prev->setRight(current);
 		   }else if(prev->getLeft() == current)
 		   {
 			   current = removeNode(current);
@@ -96,37 +102,44 @@ void BinarySearchTree<T>::remove(String* sk)
 		   current = current->getLeft();
 	   }
 	   if(current != NULL)
-		   comparison(compare_keys(sk, current->getItem()));
-   }
+		   comparison = compare_keys(sk, current->getItem());
+   }*/
 }
 
 template < class T >
 TreeNode<T>* BinarySearchTree<T>::removeItem(TreeNode<T>* tNode, String* sk)
 {
    //DO THIS
-   
-   int comparison = compare_key(sk,	tNode->getItem());
+   static int x = 1;
+   cout<<x++<<endl;
+   if(tNode == NULL) 
+	   return NULL;
+   int comparison = compare_keys(sk, tNode->getItem());
    if(comparison == 0)
-	{
-		if(tNode == getRootNode())
-		   {
-			   setRootNode(tNode->removeNode(tNode));
-		   }
-		tNode = tNode->removeNode(tNode);   
+    {
+		tNode = removeNode(tNode);
+		cout<<tNode;
+		return tNode;
 	}
-	   else if(comparison > 0)
-	   {
-		   tNode->setLeft(removeItem(tNode ->getLeft(), sk));
-	   }else if(comparison < 0)
-	   {
-		   tNode->setRight(removeItem(tNode->getRight(), sk));
-	  }
+	else if(comparison < 0)
+	{
+		TreeNode<T>* left = tNode->getLeft();
+		left = removeItem(left, sk);
+		tNode->setLeft(left);
+	}
+	else if(comparison > 0)
+	{
+		TreeNode<T>* right = tNode->getRight();
+		right = removeItem(right, sk);
+		tNode->setRight(right);
+	}
 	return tNode;
 }
 
 template < class T >
 TreeNode<T>* BinarySearchTree<T>::removeNode(TreeNode<T>* tNode)
 {
+	sze--;
    if (tNode->getLeft() == NULL && tNode->getRight() == NULL)
    {
       delete tNode;
@@ -179,7 +192,7 @@ TreeNode<T>* BinarySearchTree<T>::removeLeftMost(TreeNode<T>* tNode)
    }
 	TreeNode<T>* subtree = removeLeftMost(left);
 	tNode->setLeft(subtree);
-	return tNode();
+	return tNode;
 
 
 
@@ -199,7 +212,15 @@ T** BinarySearchTree<T>::toArray()
           array[i]=current;
    }
    */
-   BinaryTreeIterator
+   BinaryTreeIterator<T>* iterator1 = iterator();
+   iterator1->setInorder();
+   int counter = 0;
+   while(iterator1->hasNext())
+   {
+	   array[counter] = iterator1->next();
+	   counter++;
+   }
+   delete iterator1;
    return array;
 
 

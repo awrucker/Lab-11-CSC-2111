@@ -8,8 +8,7 @@ using CSC2110::String;
 #include "Line.h"
 #include "Drawable.h"
 #include "wx/wx.h"
-using namespace std;
-#include <iostream>
+
 
 template < class T >
 class BinarySearchTree : public Drawable
@@ -66,6 +65,7 @@ void BinarySearchTree<T>::remove(String* sk)
    //DO THIS
    TreeNode<T>* current = getRootNode();
    current = removeItem(current, sk);
+   sze--;
    setRootNode(current);
   /* TreeNode<T>* prev = getRootNode();
    int comparison = compare_keys(sk, current->getItem());
@@ -110,15 +110,12 @@ template < class T >
 TreeNode<T>* BinarySearchTree<T>::removeItem(TreeNode<T>* tNode, String* sk)
 {
    //DO THIS
-   static int x = 1;
-   cout<<x++<<endl;
    if(tNode == NULL) 
 	   return NULL;
    int comparison = compare_keys(sk, tNode->getItem());
    if(comparison == 0)
     {
 		tNode = removeNode(tNode);
-		cout<<tNode;
 		return tNode;
 	}
 	else if(comparison < 0)
@@ -139,33 +136,37 @@ TreeNode<T>* BinarySearchTree<T>::removeItem(TreeNode<T>* tNode, String* sk)
 template < class T >
 TreeNode<T>* BinarySearchTree<T>::removeNode(TreeNode<T>* tNode)
 {
-	sze--;
    if (tNode->getLeft() == NULL && tNode->getRight() == NULL)
    {
       delete tNode;
+	  tNode->setItem(NULL);
       return NULL;
    }
    else if (tNode->getLeft() == NULL)
    {
       TreeNode<T>* temp = tNode->getRight();
-      delete tNode;
+      tNode->setItem(NULL);
+	  tNode->setRight(NULL);
+	  delete tNode;
       return temp;
    }
    else if (tNode->getRight() == NULL)
    {
       TreeNode<T>* temp = tNode->getLeft();
+	  tNode->setItem(NULL);
+	  tNode->setLeft(NULL);
       delete tNode;
       return temp;
    }
-   else 
+   else
    {
       //DO THIS
+	  
 	  TreeNode<T>* temp = tNode->getRight();
 	  T* item = findLeftMost(temp);
-	  temp ->setLeft(removeLeftMost(temp));
+	  tNode->setRight(removeLeftMost(tNode->getRight()));
 	  tNode->setItem(item);
-	  tNode->setRight(temp);
-	  
+	  return tNode;
    }
 }
 
@@ -184,11 +185,12 @@ template < class T >
 TreeNode<T>* BinarySearchTree<T>::removeLeftMost(TreeNode<T>* tNode)
 {
    //DO THIS (recursion)
+   
    TreeNode<T>* left = tNode->getLeft();
    if(left == NULL)
    {
-	   TreeNode<T>* subtree = removeNode(tNode);
-	   return subtree;
+	   tNode = removeNode(tNode);
+	   return tNode;
    }
 	TreeNode<T>* subtree = removeLeftMost(left);
 	tNode->setLeft(subtree);

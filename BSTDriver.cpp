@@ -28,8 +28,8 @@ IMPLEMENT_APP(MyApp)
  
 bool MyApp::OnInit()
 {
-  // ListArray<CD>* cds = CD::readCDs("cds.txt");
-    ListArray<CD>* cds = CD::readCDs("test.txt");
+   ListArray<CD>* cds = CD::readCDs("cds.txt");
+   // ListArray<CD>* cds = CD::readCDs("test.txt");
    int num_items = cds->size();
    cout << num_items << endl;
 
@@ -47,7 +47,7 @@ bool MyApp::OnInit()
    //test your tree sort method
    CD** unsorted_cds = cds->toArray();
    CD** sorted_cds = bst->treeSort(unsorted_cds, num_items, &CD::compare_items, &CD::compare_keys);
-   
+   cout<<"Prior to the removes"<<endl;
    for(int i = 0; i < num_items; i ++)
    {
 	   sorted_cds[i]->getKey()->displayString();
@@ -56,27 +56,24 @@ bool MyApp::OnInit()
    delete[] unsorted_cds;
    delete[] sorted_cds;
    delete cds;
-	String* remove_title = new String("Construct");
+	String* remove_title = new String("Waiting for the End to Come");
 	bst->remove(remove_title);
 	delete remove_title;
-	cout<<"Right before the iterator"<<endl;
-	BinaryTreeIterator<CD>* iter2 = bst->iterator();
-	cout<<"Iterator was created correctly"<<endl;
-	int counter = 1;
-	iter2->setPreorder();
-	cout<<iter2->hasNext();
-	while(iter2->hasNext())
-	{
-		cout<<counter<<endl;
-		CD* cd = iter2->next();
-		cd->getKey()->displayString();
-	}
-   delete iter2;
-   
-   
-	/*remove_title = new String("Construct");
-	bst->remove(remove_title);
-	delete remove_title;*/
+   remove_title = new String("Construct");
+   bst->remove(remove_title);
+   delete remove_title;
+   remove_title = new String("Retribution");
+   bst->remove(remove_title);
+   delete remove_title;
+   cout<<"After removing Waiting for the end to come, Construct, and Retribution\n"<<endl;
+   BinaryTreeIterator<CD>* search_tree_iterator = bst->iterator();
+   search_tree_iterator->setInorder();
+   while(search_tree_iterator->hasNext())
+   {
+	   search_tree_iterator->next()->getKey()->displayString();
+	   cout<<endl;
+   }
+   delete search_tree_iterator;
    wxBoxSizer* sizer = new wxBoxSizer(wxHORIZONTAL);
    frame = new wxFrame((wxFrame *)NULL, -1,  wxT("BST Tree"), wxPoint(500,500), wxSize(1100,600));
 

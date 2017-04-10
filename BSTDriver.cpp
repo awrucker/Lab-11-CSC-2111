@@ -12,7 +12,7 @@
 
 #include "Circle.h"
 #include "Line.h"
-#include "AVLTree.h"
+//#include "AVLTree.h"
 #include "ListArray.h"
 #include "CD.h"
 #include "BinarySearchTree.h"

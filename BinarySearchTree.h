@@ -3,7 +3,7 @@
 	4/10/2017
 	Lab 11/ Binary Search Tree /Tree sort labs
 */	
-if !defined (BINARYSEARCHTREE_H)
+#if !defined (BINARYSEARCHTREE_H)
 #define BINARYSEARCHTREE_H
 
 #include "BinaryTreeIterator.h"

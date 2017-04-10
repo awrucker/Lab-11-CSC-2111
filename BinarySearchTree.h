@@ -1,4 +1,9 @@
-#if !defined (BINARYSEARCHTREE_H)
+/*
+	Dylan Bush & Adam Rucker
+	4/10/2017
+	Lab 11/ Binary Search Tree /Tree sort labs
+*/	
+if !defined (BINARYSEARCHTREE_H)
 #define BINARYSEARCHTREE_H
 
 #include "BinaryTreeIterator.h"
@@ -58,7 +63,10 @@ class BinarySearchTree : public Drawable
       void draw(wxDC& dc, int width, int height);
       void mouseClicked(int x, int y);
 };
-
+/*
+Pre:Receives a String* search key
+Post: Removes the item from the binary search tree
+*/
 template < class T >
 void BinarySearchTree<T>::remove(String* sk)
 {
@@ -105,7 +113,10 @@ void BinarySearchTree<T>::remove(String* sk)
 		   comparison = compare_keys(sk, current->getItem());
    }*/
 }
-
+/*
+Pre:Receives a String* search key and a tNode
+Post: Removes the item from the binary search tree
+*/
 template < class T >
 TreeNode<T>* BinarySearchTree<T>::removeItem(TreeNode<T>* tNode, String* sk)
 {
@@ -132,7 +143,10 @@ TreeNode<T>* BinarySearchTree<T>::removeItem(TreeNode<T>* tNode, String* sk)
 	}
 	return tNode;
 }
-
+/*
+Pre:Receives a TreeNode<T>* 
+Post: Removes the TreeNode from the binary search tree and returns its children in the correct order
+*/
 template < class T >
 TreeNode<T>* BinarySearchTree<T>::removeNode(TreeNode<T>* tNode)
 {
@@ -169,7 +183,10 @@ TreeNode<T>* BinarySearchTree<T>::removeNode(TreeNode<T>* tNode)
 	  return tNode;
    }
 }
-
+/*
+Pre: receives a tNode
+Post: finds the leftmost tree node
+*/
 template < class T >
 T* BinarySearchTree<T>::findLeftMost(TreeNode<T>* tNode)
 {
@@ -180,7 +197,10 @@ T* BinarySearchTree<T>::findLeftMost(TreeNode<T>* tNode)
    }
    return tNode->getItem();
 }
-
+/*
+	Pre:Receives a tNode
+	Post:Removes the Tree Node at the leftmost part of the tree
+*/	
 template < class T >
 TreeNode<T>* BinarySearchTree<T>::removeLeftMost(TreeNode<T>* tNode)
 {
@@ -199,7 +219,10 @@ TreeNode<T>* BinarySearchTree<T>::removeLeftMost(TreeNode<T>* tNode)
 
 
 }
-
+/*
+	Pre:
+	Post: Returns an array of items that are in the correct order
+*/	
 template < class T >
 T** BinarySearchTree<T>::toArray()
 {
@@ -227,7 +250,10 @@ T** BinarySearchTree<T>::toArray()
 
 
 }
-
+/*
+	Pre:Receives an array of items, number of items, and the ways to compare items
+	Post: Sorts the array of items
+*/	
 template < class T >
 T** BinarySearchTree<T>::treeSort(T** items, int num_items, int (*comp_items) (T* item_1, T* item_2), int (*comp_keys) (String* key, T* item))
 {

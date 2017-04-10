@@ -1,3 +1,8 @@
+/*
+	Dylan Bush & Adam Rucker
+	4/10/2017
+	Lab 11/ Binary Search Tree /Tree sort labs
+*/	
 #include "wx/wx.h"
 #include "wx/sizer.h"
 
@@ -65,7 +70,7 @@ bool MyApp::OnInit()
    remove_title = new String("Retribution");
    bst->remove(remove_title);
    delete remove_title;
-   cout<<"After removing Waiting for the end to come, Construct, and Retribution\n"<<endl;
+   cout<<"After removing Waiting for the end to come, Construct, and Retribution\n"<<endl;//removed 3 titles from the cd list
    BinaryTreeIterator<CD>* search_tree_iterator = bst->iterator();
    search_tree_iterator->setInorder();
    while(search_tree_iterator->hasNext())
